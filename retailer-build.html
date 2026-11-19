@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark scroll-smooth" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build PC Đại Lý (Đã Gắn Sẵn Phụ Kiện Từ PC MON)</title>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://unpkg.com">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col bg-[#0b0d14] text-gray-100">
+
+  <!-- 1. THANH CHUYỂN ĐỔI NHANH GIỮA 5 TRANG BUILD PC CỦA 5 ĐẠI LÝ LỚN -->
+  <div class="bg-gray-950 border-b border-gray-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <a href="index.html#summary" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-blue-400 font-bold transition-colors">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Quay về PC MON</span>
+        </a>
+        <span class="text-gray-500 hidden sm:inline">|</span>
+        <span class="text-gray-400 hidden sm:inline">Chuyển nhanh trang Build PC đại lý (Giữ nguyên phụ kiện đã gắn):</span>
+      </div>
+
+      <div id="store-switcher-tabs" class="flex flex-wrap items-center gap-1.5">
+        <!-- Render 5 nút đại lý qua JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. HEADER THƯƠNG HIỆU CỦA ĐẠI LÝ ĐANG CHỌN -->
+  <header id="retailer-brand-header" class="border-b border-gray-800 bg-gradient-to-r from-red-950/60 via-gray-900 to-gray-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-start sm:items-center gap-4">
+        <div id="retailer-logo-box" class="w-14 h-14 rounded-2xl bg-red-600 text-white flex items-center justify-center font-black text-lg tracking-tighter shadow-lg shrink-0">
+          GVN
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="retailer-header-badge" class="px-2.5 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-extrabold uppercase">
+              ✓ Đã gắn sẵn phụ kiện từ PC MON
+            </span>
+            <span id="retailer-hotline-badge" class="text-xs text-gray-300 font-medium">Hotline: 1800.6975</span>
+          </div>
+          <h1 id="retailer-page-heading" class="text-2xl sm:text-3xl font-extrabold text-white mt-1">
+            XÂY DỰNG CẤU HÌNH PC — GEARVN
+          </h1>
+          <p id="retailer-page-subheading" class="text-xs sm:text-sm text-gray-300 mt-0.5">
+            Toàn bộ linh kiện bạn đã chọn ở PC MON đã được gắn sẵn vào bảng cấu hình bên dưới.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+        <button id="btn-autofill-empty-slots" type="button" class="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md transition-all">
+          <i data-lucide="wand-2" class="w-4 h-4"></i>
+          <span>Gắn tự động các mục còn trống</span>
+        </button>
+        <button id="btn-print-retailer-quote" type="button" class="px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-200 text-xs font-bold flex items-center gap-1.5 transition-all">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+          <span>In Báo Giá Đại Lý</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. NỘI DUNG CHÍNH: BẢNG BUILD PC 8 KHE ĐÃ GẮN SẴN PHỤ KIỆN + CỘT HÓA ĐƠN ĐẶT HÀNG -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- CỘT TRÁI (8 CỘT): DANH SÁCH 8 KHE LINH KIỆN ĐÃ GẮN SẴN -->
+      <div class="lg:col-span-8 space-y-4">
+        <div class="p-4 rounded-2xl bg-emerald-950/25 border border-emerald-500/35 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+            <p id="attached-status-banner-text" class="text-xs sm:text-sm text-emerald-200 font-medium">
+              Đã tự động gắn sẵn <strong>0 / 8</strong> linh kiện bạn chọn từ PC MON vào bảng Build PC này.
+            </p>
+          </div>
+          <span class="text-[11px] text-gray-400 shrink-0">Có thể tăng giảm số lượng hoặc đổi món trực tiếp</span>
+        </div>
+
+        <!-- Bảng 8 khe cắm Build PC -->
+        <div class="rounded-2xl border border-gray-800 bg-gray-900/40 overflow-hidden shadow-xl divide-y divide-gray-800/80" id="retailer-build-slots-container">
+          <!-- Render 8 khe cắm đã gắn sẵn qua JS -->
+        </div>
+      </div>
+
+      <!-- CỘT PHẢI (4 CỘT): TÓM TẮT ĐƠN HÀNG BUILD PC & ĐẶT MUA -->
+      <div class="lg:col-span-4 lg:sticky lg:top-6 space-y-4">
+        <div class="p-6 rounded-3xl bg-gray-900/80 border border-gray-800 shadow-2xl space-y-5">
+          <div class="pb-4 border-b border-gray-800">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-400 block">Báo giá lắp ráp trọn bộ</span>
+            <h2 id="sidebar-retailer-name" class="text-xl font-extrabold text-white mt-0.5">Hóa Đơn Build PC GearVN</h2>
+            <p id="sidebar-purpose-budget" class="text-xs text-gray-400 mt-1">Nhu cầu: Gaming • Ngân sách: 20.000.000 ₫</p>
+          </div>
+
+          <div class="space-y-2.5 text-xs">
+            <div class="flex items-center justify-between text-gray-300">
+              <span>Số linh kiện đã gắn sẵn:</span>
+              <strong id="sidebar-attached-count" class="text-white">0 / 8 món</strong>
+            </div>
+            <div class="flex items-center justify-between text-gray-300">
+              <span>Công suất tiêu thụ ước tính:</span>
+              <strong id="sidebar-wattage" class="text-amber-400">0 W</strong>
+            </div>
+            <div class="flex items-center justify-between text-gray-300">
+              <span>Kiểm tra tương thích:</span>
+              <strong id="sidebar-compat-status" class="text-emerald-400">Tương thích 100%</strong>
+            </div>
+            <div class="flex items-center justify-between text-gray-300">
+              <span>Chi phí lắp ráp &amp; Cài đặt:</span>
+              <strong class="text-emerald-400">Miễn phí (0 ₫)</strong>
+            </div>
+            <div class="flex items-center justify-between text-gray-300">
+              <span>Chính sách vận chuyển:</span>
+              <strong id="sidebar-shipping-policy" class="text-right text-gray-200 max-w-[180px]">Miễn phí giao hàng</strong>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-gray-800">
+            <div class="flex items-baseline justify-between">
+              <span class="text-xs font-bold text-gray-400 uppercase">Tổng thanh toán:</span>
+              <span id="sidebar-grand-total" class="text-2xl font-black text-emerald-400">0 ₫</span>
+            </div>
+            <span class="text-[11px] text-gray-500 block text-right mt-0.5">(Giá đã bao gồm 10% VAT • Công bố ngày 17/11/2026)</span>
+          </div>
+
+          <!-- Các nút hành động đặt mua -->
+          <div class="space-y-2.5 pt-2">
+            <button id="btn-open-all-retailer-items" type="button" class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition-all">
+              <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+              <span id="btn-open-all-text">Đặt mua cấu hình này trên Web Gốc</span>
+            </button>
+
+            <a id="link-external-retailer-buildpc" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-blue-600/20 hover:bg-blue-600 border border-blue-500/40 text-blue-300 hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all">
+              <span>Mở trang Build PC gốc của Đại lý</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+
+            <button id="btn-copy-retailer-quote" type="button" class="w-full py-2.5 px-4 rounded-xl bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Sao chép Báo giá Đại lý</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- MODAL ĐỔI LINH KIỆN NGAY TRÊN TRANG BUILD PC ĐẠI LÝ -->
+  <div id="retailer-picker-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-gray-900 border border-gray-800 rounded-3xl w-full max-w-3xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-gray-800 flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-blue-400 uppercase">Kho linh kiện đại lý</span>
+          <h3 id="retailer-picker-title" class="text-lg font-extrabold text-white mt-0.5">Chọn linh kiện thay thế</h3>
+        </div>
+        <button id="retailer-picker-close" type="button" class="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-gray-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="retailer-picker-list" class="p-5 overflow-y-auto space-y-3 flex-1"></div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- Nạp kho dữ liệu và logic từ script.js + trình điều khiển trang Build PC Đại lý -->
+  <script src="script.js"></script>
+  <script>
+    (function initRetailerBuildPage() {
+      const slotsBox = document.getElementById('retailer-build-slots-container');
+      if (!slotsBox) return;
+
+      const params = new URLSearchParams(window.location.search);
+      let currentStoreId = (params.get('store') || 'gearvn').toLowerCase();
+      if (!RETAILERS.some(r => r.id === currentStoreId)) currentStoreId = 'gearvn';
+
+      // 1. Đọc danh sách linh kiện người dùng đã chọn từ URL params HOẶC từ localStorage của PC MON
+      const quantities = { cpu: 1, motherboard: 1, ram: 1, gpu: 1, storage: 1, psu: 1, case: 1, cooler: 1 };
+
+      slotDefinitions.forEach(({ key }) => {
+        const paramId = params.get(key + '_id');
+        if (paramId && componentsDB[key]) {
+          const found = componentsDB[key].find(i => i.id === paramId);
+          if (found) currentBuild[key] = found;
+        }
+      });
+      saveBuild();
+
+      const storeHeaderThemes = {
+        gearvn: { code: 'GVN', bg: 'from-red-950/75 via-gray-900 to-gray-950', logoBg: 'bg-red-600', hotline: '1800.6975' },
+        phongvu: { code: 'PV', bg: 'from-blue-950/75 via-gray-900 to-gray-950', logoBg: 'bg-blue-600', hotline: '1800.6867' },
+        hacom: { code: 'HC', bg: 'from-amber-950/70 via-gray-900 to-gray-950', logoBg: 'bg-amber-500 text-gray-950', hotline: '1900.1903' },
+        memoryzone: { code: 'MZ', bg: 'from-emerald-950/75 via-gray-900 to-gray-950', logoBg: 'bg-emerald-600', hotline: '028.7301.3878' },
+        cellphones: { code: 'CPS', bg: 'from-rose-950/75 via-gray-900 to-gray-950', logoBg: 'bg-rose-600', hotline: '1800.2097' }
+      };
+
+      function getActiveStore() {
+        return RETAILERS.find(r => r.id === currentStoreId) || RETAILERS[0];
+      }
+
+      function renderStoreTabs() {
+        const tabContainer = document.getElementById('store-switcher-tabs');
+        if (!tabContainer) return;
+        tabContainer.innerHTML = RETAILERS.map(r => {
+          const active = r.id === currentStoreId;
+          return `
+            <button type="button" data-switch-store="${r.id}" class="px-3 py-1 rounded-lg font-bold transition-all ${
+              active
+                ? r.badgeClass + ' shadow-md scale-105'
+                : 'bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-white border border-gray-800'
+            }">
+              Build PC ${r.name}
+            </button>
+          `;
+        }).join('');
+      }
+
+      function renderRetailerBuildView() {
+        const store = getActiveStore();
+        const theme = storeHeaderThemes[store.id] || storeHeaderThemes.gearvn;
+        const budget = Number(localStorage.getItem('pcmon_budget')) || 20000000;
+        const purpose = localStorage.getItem('pcmon_purpose') || 'Gaming';
+
+        document.title = `Build PC ${store.name} (Đã Gắn Sẵn Phụ Kiện Từ PC MON)`;
+
+        const headerEl = document.getElementById('retailer-brand-header');
+        const logoBox = document.getElementById('retailer-logo-box');
+        const hotlineBadge = document.getElementById('retailer-hotline-badge');
+        const heading = document.getElementById('retailer-page-heading');
+        const subheading = document.getElementById('retailer-page-subheading');
+
+        if (headerEl) headerEl.className = `border-b border-gray-800 bg-gradient-to-r ${theme.bg}`;
+        if (logoBox) {
+          logoBox.className = `w-14 h-14 rounded-2xl ${theme.logoBg} flex items-center justify-center font-black text-lg tracking-tighter shadow-lg shrink-0`;
+          logoBox.textContent = theme.code;
+        }
+        if (hotlineBadge) hotlineBadge.textContent = `Hotline tư vấn ${store.name}: ${theme.hotline}`;
+        if (heading) heading.textContent = `XÂY DỰNG CẤU HÌNH PC — ${store.name.toUpperCase()}`;
+        if (subheading) {
+          subheading.textContent = `Toàn bộ phụ kiện bạn đã chọn ở PC MON đã được gắn sẵn tự động vào bảng Build PC của ${store.name}.`;
+        }
+
+        let attachedCount = 0;
+        let grandTotal = 0;
+        slotsBox.innerHTML = '';
+
+        slotDefinitions.forEach((slot, idx) => {
+          const item = currentBuild[slot.key];
+          const qty = quantities[slot.key] || 1;
+          const row = document.createElement('div');
+          row.className = "p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-gray-800/20 transition-colors";
+
+          if (item) {
+            attachedCount++;
+            const offers = getRetailerOffersForProduct(slot.key, item);
+            const storeOffer = offers.find(o => o.retailerId === store.id) || offers[0];
+            const unitPrice = storeOffer ? storeOffer.price : item.price;
+            const lineTotal = unitPrice * qty;
+            grandTotal += lineTotal;
+            const directProductUrl = store.buildSearchUrl(cleanProductSearchQuery(item.name));
+
+            row.innerHTML = `
+              <div class="flex items-start sm:items-center gap-4 flex-1 min-w-0">
+                <div class="w-7 h-7 rounded-lg bg-blue-600/20 border border-blue-500/40 text-blue-400 font-extrabold text-xs flex items-center justify-center shrink-0">
+                  ${idx + 1}
+                </div>
+                <div class="w-16 h-16 rounded-xl bg-white p-1 border border-gray-700 shrink-0 overflow-hidden shadow">
+                  <img src="${item.image}" alt="${item.name}" onerror="handleImgError(this, '${slot.key}')" class="w-full h-full object-contain" />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                    <span class="text-xs font-extrabold uppercase text-blue-400">${slot.name}</span>
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-bold">
+                      ✓ Đã gắn sẵn từ PC MON
+                    </span>
+                    <span class="text-[10px] text-gray-400">• Bảo hành 36T • ${storeOffer ? storeOffer.stockStatus : 'Còn hàng'}</span>
+                  </div>
+                  <h3 class="text-sm sm:text-base font-extrabold text-white">${item.name}</h3>
+                  <p class="text-xs text-gray-400 mt-0.5">${item.specs}</p>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap sm:flex-nowrap items-center justify-between sm:justify-end gap-4 shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-gray-800">
+                <!-- Bộ chỉnh số lượng -->
+                <div class="flex items-center rounded-xl bg-gray-950 border border-gray-800 overflow-hidden">
+                  <button type="button" data-qty-minus="${slot.key}" class="px-2.5 py-1 text-gray-400 hover:text-white hover:bg-gray-800 text-xs font-bold">-</button>
+                  <span class="px-2.5 py-1 text-xs font-bold text-white">${qty}</span>
+                  <button type="button" data-qty-plus="${slot.key}" class="px-2.5 py-1 text-gray-400 hover:text-white hover:bg-gray-800 text-xs font-bold">+</button>
+                </div>
+
+                <div class="text-right min-w-[125px]">
+                  <span class="text-base font-extrabold text-emerald-400 block">${formatVND(lineTotal)}</span>
+                  <span class="text-[10px] text-gray-400 block">Công bố: ${item.priceUpdatedAt || '17/11/2026'}</span>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <button type="button" data-picker-slot="${slot.key}" class="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-blue-600 text-gray-200 hover:text-white text-xs font-semibold transition-colors" title="Đổi linh kiện khác">
+                    Đổi
+                  </button>
+                  <a href="${directProductUrl}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-1 transition-colors" title="Xem và thêm vào giỏ trên ${store.name}">
+                    <span>Mua trên ${store.name}</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </a>
+                  <button type="button" data-remove-attached="${slot.key}" class="p-1.5 rounded-xl bg-gray-800 hover:bg-red-600 text-gray-400 hover:text-white transition-colors" title="Bỏ gắn linh kiện này">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+            `;
+          } else {
+            row.innerHTML = `
+              <div class="flex items-center gap-4">
+                <div class="w-7 h-7 rounded-lg bg-gray-800 text-gray-400 font-bold text-xs flex items-center justify-center shrink-0">
+                  ${idx + 1}
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-gray-800/80 border border-gray-700 flex items-center justify-center text-gray-400">
+                  <i data-lucide="${slot.icon}" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <span class="text-sm font-bold text-white block">${slot.name}</span>
+                  <span class="text-xs text-gray-500 italic">Chưa chọn ở PC MON — Bấm nút bên phải để gắn linh kiện</span>
+                </div>
+              </div>
+              <button type="button" data-picker-slot="${slot.key}" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-1.5 self-start sm:self-center shadow-md">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>+ Chọn ${slot.shortName}</span>
+              </button>
+            `;
+          }
+
+          slotsBox.appendChild(row);
+        });
+
+        const { estimatedWattage } = calculateBuildMetrics(currentBuild);
+        const { issues } = evaluateBuildCompatibility(currentBuild);
+
+        const bannerText = document.getElementById('attached-status-banner-text');
+        if (bannerText) {
+          bannerText.innerHTML = `Đã tự động gắn sẵn <strong>${attachedCount} / 8</strong> phụ kiện bạn chọn từ PC MON vào bảng Build PC của <strong>${store.name}</strong>.`;
+        }
+
+        const sidebarName = document.getElementById('sidebar-retailer-name');
+        const sidebarPurpose = document.getElementById('sidebar-purpose-budget');
+        const sidebarCount = document.getElementById('sidebar-attached-count');
+        const sidebarWattage = document.getElementById('sidebar-wattage');
+        const sidebarCompat = document.getElementById('sidebar-compat-status');
+        const sidebarShipping = document.getElementById('sidebar-shipping-policy');
+        const sidebarTotal = document.getElementById('sidebar-grand-total');
+        const openAllText = document.getElementById('btn-open-all-text');
+        const extLink = document.getElementById('link-external-retailer-buildpc');
+
+        if (sidebarName) sidebarName.textContent = `Hóa Đơn Build PC ${store.name}`;
+        if (sidebarPurpose) sidebarPurpose.textContent = `Nhu cầu: ${purpose} • Ngân sách: ${formatVND(budget)}`;
+        if (sidebarCount) sidebarCount.textContent = `${attachedCount} / 8 món`;
+        if (sidebarWattage) sidebarWattage.textContent = `${estimatedWattage} W`;
+        if (sidebarCompat) {
+          sidebarCompat.textContent = issues.length === 0 ? 'Tương thích 100%' : `Có ${issues.length} xung đột`;
+          sidebarCompat.className = issues.length === 0 ? 'text-emerald-400 font-bold' : 'text-red-400 font-bold';
+        }
+        if (sidebarShipping) sidebarShipping.textContent = store.shippingPolicy;
+        if (sidebarTotal) sidebarTotal.textContent = formatVND(grandTotal);
+        if (openAllText) openAllText.textContent = `Tìm & Mua món đang chọn trên ${store.name}`;
+        if (extLink) {
+          extLink.href = buildRetailerAutoSelectUrl(store, currentBuild);
+          extLink.innerHTML = `<span>Mở trang Build PC gốc của ${store.name}</span><i data-lucide="external-link" class="w-3.5 h-3.5"></i>`;
+        }
+
+        renderStoreTabs();
+        refreshIcons();
+      }
+
+      // Sự kiện đổi Đại lý trên thanh trên cùng
+      document.getElementById('store-switcher-tabs').addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-switch-store]');
+        if (!btn) return;
+        currentStoreId = btn.dataset.switchStore;
+        renderRetailerBuildView();
+        showToast(`Đã chuyển sang bảng Build PC ${getActiveStore().name} (Giữ nguyên các phụ kiện đã gắn)!`, 'info');
+      });
+
+      // Sự kiện tăng/giảm số lượng, xóa hoặc mở bộ chọn thay thế linh kiện
+      slotsBox.addEventListener('click', (e) => {
+        const minusBtn = e.target.closest('button[data-qty-minus]');
+        if (minusBtn) {
+          const k = minusBtn.dataset.qtyMinus;
+          quantities[k] = Math.max(1, (quantities[k] || 1) - 1);
+          renderRetailerBuildView();
+          return;
+        }
+        const plusBtn = e.target.closest('button[data-qty-plus]');
+        if (plusBtn) {
+          const k = plusBtn.dataset.qtyPlus;
+          quantities[k] = Math.min(10, (quantities[k] || 1) + 1);
+          renderRetailerBuildView();
+          return;
+        }
+        const rmBtn = e.target.closest('button[data-remove-attached]');
+        if (rmBtn) {
+          const k = rmBtn.dataset.removeAttached;
+          currentBuild[k] = null;
+          saveBuild();
+          renderRetailerBuildView();
+          return;
+        }
+        const pickerBtn = e.target.closest('button[data-picker-slot]');
+        if (pickerBtn) {
+          openRetailerPartPicker(pickerBtn.dataset.pickerSlot);
+        }
+      });
+
+      // Tự động gắn nốt các khe còn trống bằng thuật toán Chuyên gia PC MON
+      document.getElementById('btn-autofill-empty-slots').addEventListener('click', () => {
+        const budget = Number(localStorage.getItem('pcmon_budget')) || 20000000;
+        const purpose = localStorage.getItem('pcmon_purpose') || 'Gaming';
+        const solved = solveExpertBuild(budget, purpose, currentBuild);
+        slotDefinitions.forEach(({ key }) => {
+          if (!currentBuild[key] && solved[key]) {
+            currentBuild[key] = solved[key];
+          }
+        });
+        saveBuild();
+        renderRetailerBuildView();
+        showToast(`Đã tự động gắn đầy đủ 8/8 phụ kiện tương thích vào Build PC ${getActiveStore().name}!`, 'success');
+      });
+
+      // Modal đổi linh kiện ngay trên trang Build PC Đại lý
+      const pickerModal = document.getElementById('retailer-picker-modal');
+      const pickerList = document.getElementById('retailer-picker-list');
+      const pickerTitle = document.getElementById('retailer-picker-title');
+      let activePickerSlot = null;
+
+      function openRetailerPartPicker(slotKey) {
+        activePickerSlot = slotKey;
+        const store = getActiveStore();
+        const slotDef = slotDefinitions.find(s => s.key === slotKey);
+        if (pickerTitle) pickerTitle.textContent = `Chọn ${slotDef ? slotDef.name : 'Linh kiện'} tại ${store.name}`;
+
+        const items = componentsDB[slotKey] || [];
+        pickerList.innerHTML = items.map(item => {
+          const compat = checkCandidateCompatibility(slotKey, item);
+          const offers = getRetailerOffersForProduct(slotKey, item);
+          const storeOffer = offers.find(o => o.retailerId === store.id) || offers[0];
+          const priceAtStore = storeOffer ? storeOffer.price : item.price;
+
+          return `
+            <div class="p-3.5 rounded-2xl border ${compat.isCompatible ? 'bg-gray-950/60 border-gray-800' : 'bg-red-950/20 border-red-900/40'} flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-white p-1 border border-gray-700 shrink-0 overflow-hidden">
+                  <img src="${item.image}" alt="${item.name}" onerror="handleImgError(this, '${slotKey}')" class="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <h4 class="text-sm font-bold text-white">${item.name}</h4>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold ${compat.isCompatible ? 'bg-emerald-500/15 text-emerald-300' : 'bg-red-500/20 text-red-300'}">
+                      ${compat.isCompatible ? 'Tương thích' : 'Không tương thích'}
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-400">${item.specs}</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0">
+                <div class="text-right">
+                  <span class="text-sm font-extrabold text-emerald-400 block">${formatVND(priceAtStore)}</span>
+                  <span class="text-[10px] text-gray-400 block">Công bố: ${item.priceUpdatedAt || '17/11/2026'}</span>
+                </div>
+                <button type="button" data-pick-item-id="${item.id}" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold">
+                  Gắn vào PC
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        pickerModal.classList.remove('hidden');
+        pickerModal.classList.add('flex');
+      }
+
+      pickerList.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-pick-item-id]');
+        if (!btn || !activePickerSlot) return;
+        const found = (componentsDB[activePickerSlot] || []).find(i => i.id === btn.dataset.pickItemId);
+        if (found) {
+          currentBuild[activePickerSlot] = found;
+          saveBuild();
+          renderRetailerBuildView();
+          showToast(`Đã gắn "${found.name}" vào Build PC ${getActiveStore().name}!`, 'success');
+        }
+        pickerModal.classList.add('hidden');
+        pickerModal.classList.remove('flex');
+      });
+
+      document.getElementById('retailer-picker-close').addEventListener('click', () => {
+        pickerModal.classList.add('hidden');
+        pickerModal.classList.remove('flex');
+      });
+
+      document.getElementById('btn-print-retailer-quote').addEventListener('click', () => window.print());
+
+      document.getElementById('btn-copy-retailer-quote').addEventListener('click', () => {
+        const store = getActiveStore();
+        let total = 0;
+        let msg = `===== BÁO GIÁ BUILD PC ${store.name.toUpperCase()} (ĐÃ GẮN SẴN TỪ PC MON) =====\n`;
+        slotDefinitions.forEach(s => {
+          const item = currentBuild[s.key];
+          if (item) {
+            const off = getRetailerOffersForProduct(s.key, item).find(o => o.retailerId === store.id);
+            const p = off ? off.price : item.price;
+            const q = quantities[s.key] || 1;
+            total += p * q;
+            msg += `• ${s.name}: ${item.name} (SL: ${q}) - ${formatVND(p * q)}\n`;
+          }
+        });
+        msg += `\nTổng thanh toán tại ${store.name}: ${formatVND(total)}\n=====================================================`;
+        navigator.clipboard.writeText(msg).then(() => {
+          showToast(`Đã sao chép báo giá Build PC ${store.name}!`, 'success');
+        });
+      });
+
+      document.getElementById('btn-open-all-retailer-items').addEventListener('click', () => {
+        const store = getActiveStore();
+        const firstPart = slotDefinitions.map(s => currentBuild[s.key]).find(item => item && !item.requiresIgpuCpu);
+        if (!firstPart) {
+          showToast('Hãy gắn ít nhất 1 linh kiện để mở trang đặt mua!', 'warning');
+          return;
+        }
+        window.open(store.buildSearchUrl(cleanProductSearchQuery(firstPart.name)), '_blank');
+      });
+
+      renderRetailerBuildView();
+    })();
+  </script>
+</body>
+</html>

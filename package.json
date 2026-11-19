@@ -1,0 +1,16 @@
+{
+  "name": "pc-mon",
+  "version": "1.0.0",
+  "description": "PC MON - Nền tảng xây dựng cấu hình PC, kiểm tra tương thích phần cứng tự động, tối ưu ngân sách & so sánh giá 5 đại lý lớn",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "node -e \"console.log('PC MON static & serverless build ready for Vercel')\"",
+    "test": "node tests/pcmon.test.js",
+    "deploy": "npx vercel --prod"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

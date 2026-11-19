@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "framework": null,
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/health", "destination": "/api/health.js" },
+    { "source": "/api/admin/verify", "destination": "/api/admin/verify.js" },
+    { "source": "/usage", "destination": "/index.html" },
+    { "source": "/budget", "destination": "/index.html" },
+    { "source": "/builder", "destination": "/index.html" },
+    { "source": "/summary", "destination": "/index.html" },
+    { "source": "/featured", "destination": "/index.html" },
+    { "source": "/account", "destination": "/index.html" },
+    { "source": "/cart", "destination": "/index.html" },
+    { "source": "/admin", "destination": "/index.html" },
+    { "source": "/retailer-build", "destination": "/retailer-build.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,438 @@
+/* ==========================================================================
+   PC MON - Custom Stylesheet
+   Tối ưu Tông chữ & Bảng màu Dịu mắt (Chống chói ở Chế độ Sáng & Rõ nét ở Chế độ Tối)
+   ========================================================================== */
+
+:root {
+  --bg-primary: #0b0f19;
+  --bg-secondary: #111827;
+  --bg-card: rgba(19, 27, 46, 0.78);
+  --border-primary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #a3b3c9;
+  --range-track-bg: #1e293b;
+}
+
+html[data-theme="light"] {
+  /* Tông nền Sáng dịu mắt (Warm Daylight Slate - Không dùng trắng tinh gây chói) */
+  --bg-primary: #e6ecf4;
+  --bg-secondary: #f5f8fc;
+  --bg-card: #f7f9fc;
+  --border-primary: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --range-track-bg: #cbd5e1;
+}
+
+/* ==========================================================================
+   1. TỐI ƯU TÔNG CHỮ & ĐỘ RÕ NÉT (TYPOGRAPHY & READABILITY)
+   ========================================================================== */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  line-height: 1.55;
+  letter-spacing: -0.004em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.22s ease, color 0.22s ease;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.018em;
+  line-height: 1.28;
+}
+
+/* Giúp các cỡ chữ nhỏ (thông số kỹ thuật, ngày công bố giá) thoáng và dễ đọc hơn */
+.text-xs,
+[class*="text-[11px]"],
+[class*="text-[10px]"] {
+  letter-spacing: 0.005em;
+  line-height: 1.48;
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #64748b !important;
+  opacity: 1;
+}
+
+/* ==========================================================================
+   2. TINH CHỈNH MÀU CHỮ CHẾ ĐỘ TỐI (DARK MODE - DỊU MẮT, RÕ THÔNG SỐ)
+   ========================================================================== */
+html[data-theme="dark"] section .text-white,
+html[data-theme="dark"] header .text-white {
+  color: #f1f5f9;
+}
+
+html[data-theme="dark"] .text-gray-200 {
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .text-gray-300 {
+  color: #cbd5e1 !important;
+}
+
+/* Làm sáng nhẹ chữ xám phụ trong Dark Mode để thông số & ngày công bố dễ đọc hơn */
+html[data-theme="dark"] .text-gray-400 {
+  color: #a3b3c9 !important;
+}
+
+html[data-theme="dark"] .text-gray-500 {
+  color: #7c8ea6 !important;
+}
+
+/* ==========================================================================
+   3. CHẾ ĐỘ SÁNG DỊU MẮT & TƯƠNG PHẢN CAO (ANTI-GLARE LIGHT MODE)
+   Loại bỏ nền trắng chói (#ffffff), dùng tông Giấy Xám Ấm (#f7f9fc / #edf2f7)
+   kết hợp chữ Mực Đậm (#0f172a / #1e293b / #334155) sắc nét.
+   ========================================================================== */
+html[data-theme="light"] header,
+html[data-theme="light"] .bg-\[\#0b0e17\]\/90,
+html[data-theme="light"] .bg-\[\#0b0e17\]\/98 {
+  background-color: rgba(244, 247, 252, 0.95) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+}
+
+html[data-theme="light"] #mobile-nav {
+  background-color: #f4f7fc !important;
+  border-color: #cbd5e1 !important;
+}
+
+html[data-theme="light"] #featured-section,
+html[data-theme="light"] .bg-\[\#0a0c10\] {
+  background-color: #dfe7f1 !important;
+  border-color: #cbd5e1 !important;
+}
+
+html[data-theme="light"] #footer,
+html[data-theme="light"] .bg-\[\#08090d\] {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+}
+
+/* Bề mặt ô nhập liệu, khung lùi (Recessed / Input Surfaces) -> Xám ngọc dịu mắt #edf2f7 */
+html[data-theme="light"] .bg-gray-950,
+html[data-theme="light"] .bg-gray-950\/40,
+html[data-theme="light"] .bg-gray-950\/50,
+html[data-theme="light"] .bg-gray-950\/60,
+html[data-theme="light"] .bg-gray-950\/70,
+html[data-theme="light"] .bg-gray-950\/80,
+html[data-theme="light"] .bg-gray-950\/90 {
+  background-color: #edf2f7 !important;
+}
+
+/* Bề mặt các thẻ Card chính -> Tông giấy dịu mắt #f7f9fc (Không trắng chói) */
+html[data-theme="light"] .bg-gray-900,
+html[data-theme="light"] .bg-gray-900\/30,
+html[data-theme="light"] .bg-gray-900\/40,
+html[data-theme="light"] .bg-gray-900\/50,
+html[data-theme="light"] .bg-gray-900\/55,
+html[data-theme="light"] .bg-gray-900\/60,
+html[data-theme="light"] .bg-gray-900\/65,
+html[data-theme="light"] .bg-gray-900\/70,
+html[data-theme="light"] .bg-gray-900\/75,
+html[data-theme="light"] .bg-gray-900\/80,
+html[data-theme="light"] .bg-gray-900\/90,
+html[data-theme="light"] .bg-gray-900\/95 {
+  background-color: #f7f9fc !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+html[data-theme="light"] #budget-section > div {
+  background: linear-gradient(180deg, #f8fafd 0%, #eff4fa 100%) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Nút phụ & thẻ phụ (.bg-gray-800) */
+html[data-theme="light"] .bg-gray-800,
+html[data-theme="light"] .bg-gray-800\/20,
+html[data-theme="light"] .bg-gray-800\/80,
+html[data-theme="light"] .bg-gray-800\/90 {
+  background-color: #dde5ef !important;
+  color: #1e293b !important;
+}
+
+html[data-theme="light"] .hover\:bg-gray-700:hover,
+html[data-theme="light"] .hover\:bg-gray-800:hover,
+html[data-theme="light"] .hover\:bg-gray-900:hover,
+html[data-theme="light"] .hover\:bg-gray-900\/80:hover {
+  background-color: #cfd9e6 !important;
+}
+
+html[data-theme="light"] .hover\:bg-gray-800\/20:hover {
+  background-color: #eef3f9 !important;
+}
+
+/* Chuyển đổi các khối nền màu tối (Emerald / Blue / Amber / Red 950) sang tông Pastel dịu mắt */
+html[data-theme="light"] .bg-emerald-950\/20,
+html[data-theme="light"] .bg-emerald-950\/25,
+html[data-theme="light"] .bg-emerald-950\/40,
+html[data-theme="light"] .bg-emerald-950\/95,
+html[data-theme="light"] .from-emerald-950\/25,
+html[data-theme="light"] .from-emerald-950\/40 {
+  background: linear-gradient(135deg, #e6f6ef 0%, #eaf3fb 100%) !important;
+  border-color: #6ee7b7 !important;
+}
+
+html[data-theme="light"] .usage-card .from-gray-900 {
+  background: linear-gradient(to top, rgba(247, 249, 252, 0.94) 0%, rgba(247, 249, 252, 0.15) 45%, transparent 100%) !important;
+}
+
+html[data-theme="light"] #expert-advisor-box,
+html[data-theme="light"] #next-step-guide-box,
+html[data-theme="light"] .bg-blue-950\/20,
+html[data-theme="light"] .bg-blue-950\/25,
+html[data-theme="light"] .bg-blue-950\/30,
+html[data-theme="light"] .bg-blue-950\/40 {
+  background: linear-gradient(135deg, #e8f1fd 0%, #f1effc 100%) !important;
+  border-color: #93c5fd !important;
+}
+
+html[data-theme="light"] #compat-warning-box,
+html[data-theme="light"] .bg-amber-950\/30,
+html[data-theme="light"] .bg-amber-950\/35,
+html[data-theme="light"] .bg-amber-950\/95 {
+  background-color: #fcf4df !important;
+  border-color: #f59e0b !important;
+  color: #78350f !important;
+}
+
+html[data-theme="light"] #compat-alert-box,
+html[data-theme="light"] .bg-red-950\/15,
+html[data-theme="light"] .bg-red-950\/20,
+html[data-theme="light"] .bg-red-950\/30,
+html[data-theme="light"] .bg-red-950\/35,
+html[data-theme="light"] .bg-red-950\/50,
+html[data-theme="light"] .bg-red-950\/60,
+html[data-theme="light"] .bg-red-950\/95 {
+  background: #fdecec !important;
+  border-color: #f87171 !important;
+  color: #7f1d1d !important;
+}
+
+/* ==========================================================================
+   4. HỆ THỐNG MÀU CHỮ TƯƠNG PHẢN CAO TRONG CHẾ ĐỘ SÁNG (KHÔNG BỊ MỜ NHẠT)
+   ========================================================================== */
+html[data-theme="light"] section .text-white,
+html[data-theme="light"] header .text-white,
+html[data-theme="light"] #component-modal .text-white,
+html[data-theme="light"] #retailer-autobuild-modal .text-white,
+html[data-theme="light"] #admin-product-modal .text-white {
+  color: #0f172a !important;
+}
+
+/* Chữ chính & phụ đậm nét, rõ ràng tuyệt đối trên nền sáng */
+html[data-theme="light"] section .text-gray-200,
+html[data-theme="light"] section .text-gray-300,
+html[data-theme="light"] header .text-gray-200,
+html[data-theme="light"] header .text-gray-300,
+html[data-theme="light"] #component-modal .text-gray-200,
+html[data-theme="light"] #component-modal .text-gray-300,
+html[data-theme="light"] #retailer-autobuild-modal .text-gray-200,
+html[data-theme="light"] #retailer-autobuild-modal .text-gray-300,
+html[data-theme="light"] #admin-product-modal .text-gray-200,
+html[data-theme="light"] #admin-product-modal .text-gray-300 {
+  color: #1e293b !important;
+}
+
+html[data-theme="light"] section .text-gray-400,
+html[data-theme="light"] header .text-gray-400,
+html[data-theme="light"] #component-modal .text-gray-400,
+html[data-theme="light"] #retailer-autobuild-modal .text-gray-400,
+html[data-theme="light"] #admin-product-modal .text-gray-400 {
+  color: #334155 !important;
+}
+
+html[data-theme="light"] section .text-gray-500,
+html[data-theme="light"] section .text-gray-600,
+html[data-theme="light"] header .text-gray-500,
+html[data-theme="light"] header .text-gray-600,
+html[data-theme="light"] #component-modal .text-gray-500,
+html[data-theme="light"] #retailer-autobuild-modal .text-gray-500,
+html[data-theme="light"] #admin-product-modal .text-gray-500 {
+  color: #475569 !important;
+}
+
+/* Màu chữ điểm nhấn (Accents) đậm và đằm hơn trong Chế độ Sáng để không bị chói */
+html[data-theme="light"] .text-blue-400,
+html[data-theme="light"] .text-blue-300,
+html[data-theme="light"] .text-blue-100 {
+  color: #1d4ed8 !important;
+}
+
+html[data-theme="light"] .text-emerald-400,
+html[data-theme="light"] .text-emerald-400\/90,
+html[data-theme="light"] .text-emerald-300,
+html[data-theme="light"] .text-emerald-200 {
+  color: #047857 !important;
+}
+
+html[data-theme="light"] .text-amber-400,
+html[data-theme="light"] .text-amber-400\/90,
+html[data-theme="light"] .text-amber-300,
+html[data-theme="light"] .text-amber-200,
+html[data-theme="light"] .text-amber-200\/90,
+html[data-theme="light"] .text-amber-100 {
+  color: #b45309 !important;
+}
+
+html[data-theme="light"] .text-purple-400,
+html[data-theme="light"] .text-purple-300 {
+  color: #6d28d9 !important;
+}
+
+html[data-theme="light"] .text-red-400,
+html[data-theme="light"] .text-red-300,
+html[data-theme="light"] .text-red-300\/80,
+html[data-theme="light"] .text-red-200,
+html[data-theme="light"] .text-red-200\/90 {
+  color: #b91c1c !important;
+}
+
+/* BẢO VỆ CHỮ TRẮNG TRÊN CÁC NÚT BẤM & HUY HIỆU MÀU ĐẬM TRONG CHẾ ĐỘ SÁNG */
+html[data-theme="light"] .bg-blue-600,
+html[data-theme="light"] .bg-blue-600 *,
+html[data-theme="light"] .bg-blue-600\/90,
+html[data-theme="light"] .bg-blue-600\/90 *,
+html[data-theme="light"] .bg-blue-500,
+html[data-theme="light"] .bg-blue-500 *,
+html[data-theme="light"] .bg-emerald-600,
+html[data-theme="light"] .bg-emerald-600 *,
+html[data-theme="light"] .bg-emerald-500,
+html[data-theme="light"] .bg-purple-600,
+html[data-theme="light"] .bg-purple-600 *,
+html[data-theme="light"] .bg-purple-500,
+html[data-theme="light"] .bg-red-600,
+html[data-theme="light"] .bg-red-600 *,
+html[data-theme="light"] .bg-red-500,
+html[data-theme="light"] .bg-red-500 *,
+html[data-theme="light"] .bg-rose-600,
+html[data-theme="light"] .bg-rose-600 *,
+html[data-theme="light"] #profile-avatar-box,
+html[data-theme="light"] #nav-cart-count,
+html[data-theme="light"] #btn-auto-build,
+html[data-theme="light"] #btn-auto-build *,
+html[data-theme="light"] #btn-confirm-build,
+html[data-theme="light"] #btn-confirm-build * {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .bg-amber-500,
+html[data-theme="light"] .bg-amber-500 *,
+html[data-theme="light"] .bg-amber-400 {
+  color: #0f172a !important;
+}
+
+/* Chuyển đổi màu đường viền (Borders) rõ nét hơn trong Light Mode */
+html[data-theme="light"] .border-gray-800,
+html[data-theme="light"] .border-gray-800\/60,
+html[data-theme="light"] .border-gray-800\/70,
+html[data-theme="light"] .border-gray-800\/80,
+html[data-theme="light"] .border-gray-800\/90,
+html[data-theme="light"] .border-gray-700,
+html[data-theme="light"] .border-gray-700\/60 {
+  border-color: #cbd5e1 !important;
+}
+
+html[data-theme="light"] .divide-gray-800\/80 > :not([hidden]) ~ :not([hidden]),
+html[data-theme="light"] .divide-gray-800\/70 > :not([hidden]) ~ :not([hidden]),
+html[data-theme="light"] .divide-gray-800\/60 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #d8e1ec !important;
+}
+
+/* ==========================================================================
+   5. THANH CUỘN, SLIDER & HIỆU ỨNG CHUYỂN ĐỘNG
+   ========================================================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(
+    to right,
+    #3b82f6 0%,
+    #6366f1 var(--range-progress, 20%),
+    var(--range-track-bg) var(--range-progress, 20%),
+    var(--range-track-bg) 100%
+  );
+}
+input[type=range]:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 4px;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  border: 3px solid #f8fafc;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.65);
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+  background: #3b82f6;
+}
+input[type=range]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  border: 3px solid #f8fafc;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.65);
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.modal-fade-in {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-slide-in {
+  animation: toastSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
